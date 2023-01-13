@@ -12,26 +12,16 @@ public class Player : MonoBehaviour
 
     [SerializeField]private bool _onGround = false;
 
-    private void Start()
+    private void Update()
     {
-        StartCoroutine(ControlCoroutine());
-    }
+         if(Input.GetKey(KeyCode.D))
+            Move(_accelerationForce);
 
-    private IEnumerator ControlCoroutine()
-    {
-        while(true)
-        {
-            yield return null;
+        if(Input.GetKey(KeyCode.A))
+            Move(-_accelerationForce);
 
-            if(Input.GetKey(KeyCode.D))
-                Move(_accelerationForce);
-
-            if(Input.GetKey(KeyCode.A))
-                Move(-_accelerationForce);
-
-            if(_onGround && Input.GetKeyDown(KeyCode.Space))
-                Jump();
-        }
+        if(_onGround && Input.GetKeyDown(KeyCode.Space))
+            Jump();
     }
 
     private void Move(float accelerationForce)
